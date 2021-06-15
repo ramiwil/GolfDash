@@ -1,2 +1,2 @@
-# TopToss
-Top Toss the game
+# Ball Toss
+Ball Toss the game
