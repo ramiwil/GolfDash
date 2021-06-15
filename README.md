@@ -1,2 +1,2 @@
-# Ball Toss
-Ball Toss the game
+# Golf Dash
+Golf Dash the game
