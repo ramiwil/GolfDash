@@ -4,48 +4,37 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Touch touch;
+    private float speedModifier;
     public Rigidbody ball;
-    public float force;
 
-    Vector3 touchPos;
     // Start is called before the first frame update
     void Start()
     {
-        ball.AddForce(force,0,0);
+        speedModifier = 0.005f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) {
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.touches[0].position);
-        //    RaycastHit hit;
 
-        //    if (Physics.Raycast(ray, out hit)) {
-        //        if (hit.collider != null) {
-        //            //ball.AddForce(force,0,0);
-        //        }
-        //    }
-        //}
+        if (Input.touchCount > 0) {
+            touch = Input.GetTouch(0);
 
-        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) {
-            if (Input.touches[0].position.x > 10) {
-                touchPos.z = Input.touches[0].position.x / 90;
-            } else {
-                touchPos.z = Input.touches[0].position.x;
+            if (touch.phase == TouchPhase.Moved) {
+                transform.position = new Vector3(
+                    transform.position.x + -touch.deltaPosition.y * speedModifier,
+                    transform.position.y,
+                    transform.position.z + touch.deltaPosition.x * speedModifier);
+                Debug.Log("MOVING");
             }
 
-            if (Input.touches[0].position.y > 10) {
-                touchPos.x = 0;
-            } else {
-                touchPos.x = Input.touches[0].position.y;
+            if (touch.phase == TouchPhase.Ended) {
+                ball.AddForce(transform.position.x + -touch.deltaPosition.y * speedModifier * 2000,
+                    0,
+                    transform.position.z + touch.deltaPosition.x * speedModifier * 2000);
+                Debug.Log("STOPPED");
             }
-
-           touchPos.y = 2;
-           Debug.Log(touchPos);
-           ball.position = touchPos;
-           
         }
-
     }
 }
