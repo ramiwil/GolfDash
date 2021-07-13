@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - FinishLine
+  - Hole
+  - Walls
+  - Floor
+  - Props
   layers:
   - Default
   - TransparentFX
@@ -12,9 +15,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - StaticGameElements
+  - Player
+  - Ground
   - 
   - 
   - 
