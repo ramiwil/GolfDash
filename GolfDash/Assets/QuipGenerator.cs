@@ -8,6 +8,8 @@ public class QuipGenerator : MonoBehaviour
     void Start()
     {
         3/3: ok legend, tiger 
+        
+    
     }
 
     // Update is called once per frame
