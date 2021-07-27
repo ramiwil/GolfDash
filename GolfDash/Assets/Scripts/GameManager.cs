@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         player.velocity = reset;
         player.isKinematic = true;
 
-        SceneManager.LoadScene("LevelEndScreen");
+        SceneManager.LoadScene("LevelEnd");
         
     }
 
