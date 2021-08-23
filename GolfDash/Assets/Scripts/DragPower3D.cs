@@ -49,135 +49,67 @@ public class DragPower3D : MonoBehaviour
         MainCam = GameObject.FindGameObjectWithTag("MainCamera").transform; 
     }
 
-    void Update() {
-        if (player.velocity.magnitude < 0.02) {
-            if (Input.touchCount > 0) {
-                touch = Input.GetTouch(0);
-                Input.simulateMouseWithTouches = true;
 
-                if (touch.phase == TouchPhase.Began) {
-                    //enable toe first point of the line
-                    line.enabled = true;
-                    //the line begins at this target position
-                    line.SetPosition(0, transform.position); 
-                }
+    private void OnMouseDown()
+    {
+        //enable toe first point of the line
+        line.enabled = true;
+        //the line begins at this target position
+        line.SetPosition(0, transform.position);
+     }
 
-                if (touch.phase == TouchPhase.Stationary) {
-                    line.SetPosition(0, transform.position);
-                }
+     private void OnMouseDrag()
+     {
+         currentDistance = Vector3.Distance(currentMousePosition, transform.position); //update the current distcance
+         //lets make sure we dont go pass max distance
+         if (currentDistance <= maxDistance)
+         {
+             temp = currentMousePosition; //saving the current possion while dragin is allowed
+             goodSpace = currentDistance;
+             line.startColor = StartColor; //set the starting color of the line
+         }
+         else
+         {
+             temp = new Vector3(currentMousePosition.x, currentMousePosition.y, temp.z); // dont go any further
+             goodSpace = maxDistance;
+         }
+         //assign the shoot power and times it by your desired power
+         shootPower = Mathf.Abs(goodSpace) * power;
 
-                if (touch.phase == TouchPhase.Moved) {
-                    line.SetPosition(0, transform.position);
-                    currentDistance = Vector3.Distance(currentMousePosition, transform.position); //update the current distcance
-                    //lets make sure we dont go pass max distance
-                    if (currentDistance <= maxDistance)
-                    {
-                        temp = currentMousePosition; //saving the current possion while dragin is allowed
-                        goodSpace = currentDistance;
-                        line.startColor = StartColor; //set the starting color of the line
-                    }
-                    else
-                    {
-                        temp = new Vector3(currentMousePosition.x, currentMousePosition.y, temp.z); // dont go any further
-                        goodSpace = maxDistance;
-                    }
-                    //assign the shoot power and times it by your desired power
-                    shootPower = Mathf.Abs(goodSpace) * power;
-
-                    //get mouse position over the floor - when we drag the mouse position will be allow the x y and Z in 3D :) Yay!
-                    Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                    if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity, groundLayers))
-                    {
-                        currentMousePosition = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
-                    }
-
-                    //calculate the shoot Direction
-                    shootDirection = Vector3.Normalize(currentMousePosition - transform.position);
-                    //handle line drawing and colors
-
-                    ///update the line while we drag
-                    line.SetPosition(1, temp);
-                }
-
-                if (touch.phase == TouchPhase.Ended) {
-                    Vector3 push = shootDirection * shootPower * -1; //force in the correct direction
-                    GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
-                    line.enabled = false; //remove the line
-
-                    if(CameraFollowBall)
-                    {
-                        //position for camera to follow with offset.
-                        Vector3 desiredPosition = transform.position + CamOffset;
-                        // camera follow balll
-                        MainCam.position = desiredPosition;
-                    }
-                    //change color gradualy base of how far you drag
-                    line.endColor = Color.Lerp(StartColor, EndColor, currentDistance / maxDistance);
-                }       
-            }
-        }
-    }
-
-    //private void OnMouseDown()
-    //{
-    //    //enable toe first point of the line
-    //    line.enabled = true;
-    //    //the line begins at this target position
-    //    line.SetPosition(0, transform.position);
-    //}
-
-    //private void OnMouseDrag()
-    //{
-    //    currentDistance = Vector3.Distance(currentMousePosition, transform.position); //update the current distcance
-    //    //lets make sure we dont go pass max distance
-    //    if (currentDistance <= maxDistance)
-    //    {
-    //        temp = currentMousePosition; //saving the current possion while dragin is allowed
-    //        goodSpace = currentDistance;
-    //        line.startColor = StartColor; //set the starting color of the line
-    //    }
-    //    else
-    //    {
-    //        temp = new Vector3(currentMousePosition.x, currentMousePosition.y, temp.z); // dont go any further
-    //        goodSpace = maxDistance;
-    //    }
-    //    //assign the shoot power and times it by your desired power
-    //    shootPower = Mathf.Abs(goodSpace) * power;
-
-    //    //get mouse position over the floor - when we drag the mouse position will be allow the x y and Z in 3D :) Yay!
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, groundLayers))
-    //    {
-    //        currentMousePosition = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
-    //    }
-//
-    //    //calculate the shoot Direction
-    //    shootDirection = Vector3.Normalize(currentMousePosition - transform.position);
+         //get mouse position over the floor - when we drag the mouse position will be allow the x y and Z in 3D :) Yay!
+         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+         if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, groundLayers))
+         {
+             currentMousePosition = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
+         }
+ 
+         //calculate the shoot Direction
+         shootDirection = Vector3.Normalize(currentMousePosition - transform.position);
         //handle line drawing and colors
-//
-    //    ///update the line while we drag
-    //    line.SetPosition(1, temp);
-    //}
+ 
+         ///update the line while we drag
+         line.SetPosition(1, temp);
+     }
 
-    //private void OnMouseUp()
-    //{
-    //    Vector3 push = shootDirection * shootPower * -1; //force in the correct direction
-    //    GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
-    //    line.enabled = false; //remove the line
-    //}
+     private void OnMouseUp()
+     {
+         Vector3 push = shootDirection * shootPower * -1; //force in the correct direction
+         GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
+         line.enabled = false; //remove the line
+     }
 
-    //private void LateUpdate()
-    //{
-    //    if (CameraFollowBall)
-    //    {
-    //        //position for camera to follow with offset.
-    //        Vector3 desiredPosition = transform.position + CamOffset;
-    //        // camera follow balll
-    //        MainCam.position = desiredPosition;
-    //    }
-    //    //change color gradualy base of how far you drag
-    //    line.endColor = Color.Lerp(StartColor, EndColor, currentDistance / maxDistance);
-    //}
+     private void LateUpdate()
+     {
+         if (CameraFollowBall)
+         {
+             //position for camera to follow with offset.
+             Vector3 desiredPosition = transform.position + CamOffset;
+             // camera follow balll
+             MainCam.position = desiredPosition;
+         }
+         //change color gradualy base of how far you drag
+         line.endColor = Color.Lerp(StartColor, EndColor, currentDistance / maxDistance);
+     }
 
 
 }

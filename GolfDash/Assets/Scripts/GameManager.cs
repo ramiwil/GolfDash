@@ -13,11 +13,16 @@ public class GameManager : MonoBehaviour
     public Touch touch;
     Vector3 reset;
 
+
+
+    //Shared data between levels
+    public static int holes;
+
     public void Start() {
         playerMoves = 0;
     }
     public void EndGame() {
-        Debug.Log("LEVEL WON");
+        //Debug.Log("LEVEL WON");
 
         player.velocity = reset;
         player.isKinematic = true;
@@ -27,7 +32,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void UpdateMoves() {
-        Debug.Log(player.velocity.magnitude);
+        //Debug.Log(player.velocity.magnitude);
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
             if (player.velocity.magnitude < 0.02) {
                 shootStatus.text = "Shoot!";
@@ -47,4 +52,5 @@ public class GameManager : MonoBehaviour
             }
         }   
     }
+
 }
