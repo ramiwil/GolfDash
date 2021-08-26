@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //these are required for the script to work.
 [RequireComponent(typeof(Rigidbody))]
@@ -52,50 +53,65 @@ public class DragPower3D : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //enable toe first point of the line
-        line.enabled = true;
-        //the line begins at this target position
-        line.SetPosition(0, transform.position);
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
+            if (player.velocity.magnitude < 0.02) {
+                //enable toe first point of the line
+                line.enabled = true;
+                //the line begins at this target position
+                line.SetPosition(0, transform.position);
+            }
+        }
+        
      }
 
      private void OnMouseDrag()
      {
-         currentDistance = Vector3.Distance(currentMousePosition, transform.position); //update the current distcance
-         //lets make sure we dont go pass max distance
-         if (currentDistance <= maxDistance)
-         {
-             temp = currentMousePosition; //saving the current possion while dragin is allowed
-             goodSpace = currentDistance;
-             line.startColor = StartColor; //set the starting color of the line
-         }
-         else
-         {
-             temp = new Vector3(currentMousePosition.x, currentMousePosition.y, temp.z); // dont go any further
-             goodSpace = maxDistance;
-         }
-         //assign the shoot power and times it by your desired power
-         shootPower = Mathf.Abs(goodSpace) * power;
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
+            if (player.velocity.magnitude < 0.02) {
+                currentDistance = Vector3.Distance(currentMousePosition, transform.position); //update the current distcance
+                //lets make sure we dont go pass max distance
+                if (currentDistance <= maxDistance)
+                {
+                    temp = currentMousePosition; //saving the current possion while dragin is allowed
+                    goodSpace = currentDistance;
+                    line.startColor = StartColor; //set the starting color of the line
+                }
+                else
+                {
+                    temp = new Vector3(currentMousePosition.x, currentMousePosition.y, temp.z); // dont go any further
+                    goodSpace = maxDistance;
+                }
+                //assign the shoot power and times it by your desired power
+                shootPower = Mathf.Abs(goodSpace) * power;
 
-         //get mouse position over the floor - when we drag the mouse position will be allow the x y and Z in 3D :) Yay!
-         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-         if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, groundLayers))
-         {
-             currentMousePosition = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
-         }
- 
-         //calculate the shoot Direction
-         shootDirection = Vector3.Normalize(currentMousePosition - transform.position);
-        //handle line drawing and colors
- 
-         ///update the line while we drag
-         line.SetPosition(1, temp);
+                //get mouse position over the floor - when we drag the mouse position will be allow the x y and Z in 3D :) Yay!
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, groundLayers))
+                {
+                    currentMousePosition = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
+                }
+        
+                //calculate the shoot Direction
+                shootDirection = Vector3.Normalize(currentMousePosition - transform.position);
+                //handle line drawing and colors
+        
+                ///update the line while we drag
+                line.SetPosition(1, temp);
+            }
+        }
+                
      }
 
      private void OnMouseUp()
      {
-         Vector3 push = shootDirection * shootPower * -1; //force in the correct direction
-         GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
-         line.enabled = false; //remove the line
+         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
+            if (player.velocity.magnitude < 0.02) {
+                Vector3 push = shootDirection * shootPower * -1; //force in the correct direction
+                GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
+                line.enabled = false; //remove the line
+            }
+        }
+                
      }
 
      private void LateUpdate()

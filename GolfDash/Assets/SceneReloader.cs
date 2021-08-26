@@ -11,7 +11,7 @@ public class SceneReloader : MonoBehaviour
     void Update()
     {
         if(player.position.y < 0) {
-            SceneManager.LoadScene("Level02");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

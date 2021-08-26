@@ -36,6 +36,8 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\PreFabs\Buttons\ResetButton.cs" />
+     <Compile Include="Assets\Scripts\Button Scripts\LevelButton.cs" />
      <Compile Include="Assets\Scripts\Button Scripts\LevelSelectButton.cs" />
      <Compile Include="Assets\SceneReloader.cs" />
      <Compile Include="Assets\Scripts\ScoreCounter.cs" />
@@ -50,8 +52,12 @@
      <Compile Include="Assets\Scripts\HomeButton.cs" />
      <Compile Include="Assets\Scripts\Unused Scripts\FollowPlayer.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
-     <Compile Include="Assets\Scripts\Button Scripts\LevelButton.cs" />
-     <Compile Include="Assets\PreFabs\Buttons\ResetButton.cs" />
+     <Compile Include="Assets\LevelData.cs" />
+     <Compile Include="Assets\Scripts\TitleScreenColorChange.cs" />
+     <Compile Include="Assets\QuipGenerator.cs" />
+     <Compile Include="Assets\NextLevelButton.cs" />
+     <Compile Include="Assets\LevelFlagData.cs" />
+     <Compile Include="Assets\ScoreFlagCounter.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
