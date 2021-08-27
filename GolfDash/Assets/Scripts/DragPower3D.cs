@@ -39,6 +39,8 @@ public class DragPower3D : MonoBehaviour
     public float smoothSpeed = 10.0f;
     private Rigidbody player;
 
+    private float thres = GameManager.shootThreshold;
+
 
     private void Awake()
     {
@@ -54,9 +56,9 @@ public class DragPower3D : MonoBehaviour
     private void OnMouseDown()
     {
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
-            if (player.velocity.magnitude < 0.02) {
+            if (player.velocity.magnitude < thres) {
                 //enable toe first point of the line
-                line.enabled = true;
+                //line.enabled = true;
                 //the line begins at this target position
                 line.SetPosition(0, transform.position);
             }
@@ -67,7 +69,8 @@ public class DragPower3D : MonoBehaviour
      private void OnMouseDrag()
      {
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
-            if (player.velocity.magnitude < 0.02) {
+            if (player.velocity.magnitude < thres) {
+                line.enabled = true;
                 currentDistance = Vector3.Distance(currentMousePosition, transform.position); //update the current distcance
                 //lets make sure we dont go pass max distance
                 if (currentDistance <= maxDistance)
@@ -105,7 +108,7 @@ public class DragPower3D : MonoBehaviour
      private void OnMouseUp()
      {
          if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
-            if (player.velocity.magnitude < 0.02) {
+            if (player.velocity.magnitude < thres) {
                 Vector3 push = shootDirection * shootPower * -1; //force in the correct direction
                 GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
                 line.enabled = false; //remove the line

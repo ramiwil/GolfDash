@@ -12,12 +12,12 @@ public class GameManager : MonoBehaviour
     public Text playerMovesText;
     public Text shootStatus;
     public Touch touch;
-    Vector3 reset; 
+    Vector3 reset;
+    public static float shootThreshold = 2f; 
 
 
     //Shared data between levels
     public static string curScene;
-
 
     public void Start() {
         playerMoves = 0;
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateMoves() {
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
-            if (player.velocity.magnitude < 0.02) {
+            if (player.velocity.magnitude < shootThreshold) {
                 shootStatus.text = "Shoot!";
             } else {
                 shootStatus.text = "Wait...";
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
             if (Input.touchCount > 0) {
                 touch = Input.GetTouch(0);
                 
-                if (touch.phase == TouchPhase.Ended && player.velocity.magnitude < 0.02) {
+                if (touch.phase == TouchPhase.Ended && player.velocity.magnitude < shootThreshold) {
                     playerMoves++;
                 }
                 

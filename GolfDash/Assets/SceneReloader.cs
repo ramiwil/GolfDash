@@ -7,10 +7,12 @@ public class SceneReloader : MonoBehaviour
 {   
     public Rigidbody player;
 
+    public int bottomLimit;
+
     // Update is called once per frame
     void Update()
     {
-        if(player.position.y < 0) {
+        if(player.position.y < bottomLimit) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
