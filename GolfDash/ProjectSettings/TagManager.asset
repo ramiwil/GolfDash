@@ -8,6 +8,7 @@ TagManager:
   - Walls
   - Floor
   - Props
+  - CameraRotator
   layers:
   - Default
   - TransparentFX

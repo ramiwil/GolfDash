@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Text shootStatus;
     public Touch touch;
     Vector3 reset;
+    
     public static float shootThreshold = 2f; 
 
 
@@ -49,13 +50,32 @@ public class GameManager : MonoBehaviour
                 shootStatus.text = "Wait...";
             }
         }
+
         if(SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LevelEndScreen")) {
             if (Input.touchCount > 0) {
                 touch = Input.GetTouch(0);
-                
-                if (touch.phase == TouchPhase.Ended && player.velocity.magnitude < shootThreshold) {
-                    playerMoves++;
+
+
+                Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit raycastHit;
+
+                if (Physics.Raycast(raycast, out raycastHit))
+                {
+
+                    if (raycastHit.collider.CompareTag("Player") && touch.phase == TouchPhase.Ended && player.velocity.magnitude < shootThreshold)
+                    {
+                        Debug.Log("Ball clicked");
+
+                        //if (touch.phase == TouchPhase.Ended && player.velocity.magnitude < shootThreshold) {
+                            playerMoves++;
+                        //}
+                    }
+
+                    
                 }
+
+
+                
                 
                 playerMovesText.text = playerMoves.ToString();
             }

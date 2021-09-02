@@ -439,6 +439,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2038627219}
     - target: {fileID: 4502274298601168963, guid: 01e8d0bf234e0e845b13fe213bba45ac, type: 3}
+      propertyPath: m_Parameters.textureMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502274298601168963, guid: 01e8d0bf234e0e845b13fe213bba45ac, type: 3}
       propertyPath: m_Parameters.numCapVertices
       value: 1
       objectReference: {fileID: 0}

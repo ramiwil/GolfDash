@@ -99,6 +99,7 @@ public class DragPower3D : MonoBehaviour
                 //handle line drawing and colors
         
                 ///update the line while we drag
+                line.SetPosition(0, transform.position);
                 line.SetPosition(1, temp);
             }
         }

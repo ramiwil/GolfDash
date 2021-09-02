@@ -43,7 +43,9 @@
      <Compile Include="Assets\Scripts\ScoreCounter.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\DragPower3D.cs" />
+     <Compile Include="Assets\Scripts\TitleScreenColorChange.cs" />
      <Compile Include="Assets\Scripts\TitleScreenBallMovement.cs" />
+     <Compile Include="Assets\QuipGenerator.cs" />
      <Compile Include="Assets\Scripts\FinalScore.cs" />
      <Compile Include="Assets\Scripts\SkyColorChanger.cs" />
      <Compile Include="Assets\Scripts\Unused Scripts\PlayerMovement.cs" />
@@ -51,13 +53,12 @@
      <Compile Include="Assets\Scripts\Hole.cs" />
      <Compile Include="Assets\Scripts\HomeButton.cs" />
      <Compile Include="Assets\Scripts\Unused Scripts\FollowPlayer.cs" />
-     <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\LevelData.cs" />
-     <Compile Include="Assets\Scripts\TitleScreenColorChange.cs" />
-     <Compile Include="Assets\QuipGenerator.cs" />
-     <Compile Include="Assets\NextLevelButton.cs" />
-     <Compile Include="Assets\LevelFlagData.cs" />
      <Compile Include="Assets\ScoreFlagCounter.cs" />
+     <Compile Include="Assets\LevelFlagData.cs" />
+     <Compile Include="Assets\NextLevelButton.cs" />
+     <Compile Include="Assets\Scripts\Score.cs" />
+     <Compile Include="Assets\CameraRotator.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
